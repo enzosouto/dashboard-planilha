@@ -6,7 +6,6 @@
     <title>Dashboard Campanhas SECOM</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Reset e variáveis de cores */
         * {
             margin: 0;
             padding: 0;
@@ -33,7 +32,6 @@
             color: var(--text-primary);
             line-height: 1.5;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         /* Mobile Menu Button */
@@ -52,20 +50,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 260px;
-            background-color: var(--card-color);
-            border-right: 1px solid var(--border-color);
-            padding: 24px;
-            z-index: 1000;
-            transition: transform 0.3s ease;
-        }
-
+        /* Sidebar Overlay */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -82,6 +67,20 @@
         .sidebar-overlay.active {
             opacity: 1;
             display: block;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background-color: var(--card-color);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-logo {
@@ -143,12 +142,6 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .metric-icon {
@@ -199,7 +192,8 @@
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 32px;
-            overflow: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .table-header {
@@ -236,7 +230,6 @@
             align-items: center;
             gap: 8px;
             font-weight: 500;
-            transition: all 0.3s ease;
         }
 
         .btn-secondary {
@@ -244,20 +237,10 @@
             color: var(--text-primary);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--hover-color);
-        }
-
-        /* Table Responsive */
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
+        /* Table */
         table {
             width: 100%;
             border-collapse: collapse;
-            white-space: nowrap;
         }
 
         th, td {
@@ -270,15 +253,6 @@
             font-weight: 500;
             color: var(--text-secondary);
             background-color: var(--background-color);
-        }
-
-        .campaign-row {
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .campaign-row:hover {
-            background-color: var(--hover-color);
         }
 
         /* Charts Grid */
@@ -298,19 +272,13 @@
 
         .chart-header {
             margin-bottom: 24px;
+            text-align: center;
         }
 
         .chart-title {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .chart-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: center;
         }
 
         .chart-legend {
@@ -333,56 +301,7 @@
             border-radius: 3px;
         }
 
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            position: relative;
-        }
-
-        .responsive-svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background-color: var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--primary-color);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
-        /* Status Badge */
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .status-active {
-            background-color: #DCFCE7;
-            color: #16A34A;
-        }
-
-        .status-pending {
-            background-color: #FEF3C7;
-            color: #D97706;
-        }
-
-        /* Responsive Design */
+        /* Responsividade */
         @media screen and (max-width: 1200px) {
             .metrics-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -412,9 +331,13 @@
                 padding-top: 60px;
             }
 
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
             .table-header {
                 flex-direction: column;
-                align-items: flex-start;
                 gap: 16px;
             }
 
@@ -425,11 +348,6 @@
 
             .search-input {
                 width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
             }
 
             .chart-legend {
@@ -454,17 +372,17 @@
                 font-size: 16px;
             }
 
+            .chart-legend {
+                grid-template-columns: 1fr;
+            }
+
             th, td {
                 padding: 12px 8px;
                 font-size: 14px;
             }
-
-            .chart-container {
-                height: 300px;
-            }
         }
 
-        /* Utility Classes */
+        /* Utilidades */
         .hide-on-mobile {
             display: none !important;
         }
@@ -478,29 +396,15 @@
                 display: block !important;
             }
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .metric-card, .chart-card {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .no-scroll {
-            overflow: hidden;
-        }
     </style>
 </head>
 <body>
-    <!-- Botão de Menu Mobile -->
+    <!-- Botão Menu Mobile -->
     <button class="mobile-menu-btn hide-on-desktop" aria-label="Menu">
         <i class="fas fa-bars"></i>
     </button>
-
-    <!-- Overlay para fechar o menu no mobile -->
+    
+    <!-- Overlay -->
     <div class="sidebar-overlay hide-on-desktop"></div>
 
     <!-- Sidebar -->
@@ -509,20 +413,18 @@
             <img src="https://logospng.org/download/governo-federal/governo-federal-brasil-4096.png" alt="SECOM Logo">
             <span>SECOM Dashboard</span>
         </div>
-        <nav>
-            <ul class="sidebar-menu">
-                <li><a href="#" class="active"><i class="fas fa-home"></i> Visão Geral</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Análises</a></li>
-                <li><a href="#"><i class="fas fa-calendar"></i> Campanhas</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Agências</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Configurações</a></li>
-            </ul>
-        </nav>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> Visão Geral</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> Análises</a></li>
+            <li><a href="#"><i class="fas fa-calendar"></i> Campanhas</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Agências</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Configurações</a></li>
+        </ul>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Metrics Grid -->
+        <!-- Metrics -->
         <div class="metrics-grid">
             <div class="metric-card">
                 <i class="fas fa-dollar-sign metric-icon"></i>
@@ -597,247 +499,3 @@
                             <th>Status</th>
                             <th>Orçamento</th>
                             <th>Praça</th>
-                            <th>Progresso</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Conteúdo da tabela será preenchido via JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <div class="charts-grid">
-            <!-- Distribuição de Mídia -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">Distribuição de Mídia</div>
-                    <div class="chart-legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #2563EB"></div>
-                            <span>Internet</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #10B981"></div>
-                            <span>Televisão</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #F59E0B"></div>
-                            <span>Rádio</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #EF4444"></div>
-                            <span>Mídia Exterior Digital</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <svg viewBox="0 0 800 400" class="responsive-svg">
-                        <!-- Background Grid -->
-                        <g class="grid">
-                            <rect x="100" y="50" width="650" height="300" fill="#F8FAFC"/>
-                            <line x1="100" y1="50" x2="750" y2="50" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="100" y1="110" x2="750" y2="110" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="100" y1="170" x2="750" y2="170" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="100" y1="230" x2="750" y2="230" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="100" y1="290" x2="750" y2="290" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="100" y1="350" x2="750" y2="350" stroke="#E2E8F0" stroke-width="1"/>
-                        </g>
-
-                        <!-- Y-axis labels -->
-                        <g class="y-axis" font-size="12" fill="#64748B">
-                            <text x="90" y="55" text-anchor="end">100%</text>
-                            <text x="90" y="115" text-anchor="end">80%</text>
-                            <text x="90" y="175" text-anchor="end">60%</text>
-                            <text x="90" y="235" text-anchor="end">40%</text>
-                            <text x="90" y="295" text-anchor="end">20%</text>
-                            <text x="90" y="355" text-anchor="end">0%</text>
-                        </g>
-
-                        <!-- Bars -->
-                        <g class="bars">
-                            <!-- Internet -->
-                            <g class="bar-group" transform="translate(150,0)">
-                                <rect x="0" y="100" width="60" height="250" fill="#2563EB" rx="4">
-                                    <title>Internet: 85%</title>
-                                </rect>
-                            </g>
-
-                            <!-- TV -->
-                            <g class="bar-group" transform="translate(230,0)">
-                                <rect x="0" y="130" width="60" height="220" fill="#10B981" rx="4">
-                                    <title>TV: 75%</title>
-                                </rect>
-                            </g>
-
-                            <!-- Rádio -->
-                            <g class="bar-group" transform="translate(310,0)">
-                                <rect x="0" y="170" width="60" height="180" fill="#F59E0B" rx="4">
-                                    <title>Rádio: 60%</title>
-                                </rect>
-                            </g>
-
-                            <!-- Mídia Exterior Digital -->
-                            <g class="bar-group" transform="translate(390,0)">
-                                <rect x="0" y="200" width="60" height="150" fill="#EF4444" rx="4">
-                                    <title>Mídia Exterior Digital: 50%</title>
-                                </rect>
-                            </g>
-                        </g>
-
-                        <!-- Labels abaixo das barras -->
-                        <g class="x-axis" font-size="12" fill="#64748B">
-                            <text x="180" y="380" text-anchor="middle">Internet</text>
-                            <text x="260" y="380" text-anchor="middle">TV</text>
-                            <text x="340" y="380" text-anchor="middle">Rádio</text>
-                            <text x="420" y="380" text-anchor="middle">Digital</text>
-                        </g>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Distribuição por Praça -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">Distribuição de Campanhas por Praça</div>
-                    <div class="chart-legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #2563EB"></div>
-                            <span>Nacional (45%)</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #10B981"></div>
-                            <span>Regional (35%)</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background-color: #F59E0B"></div>
-                            <span>Local (20%)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <svg viewBox="-100 -100 200 200" class="responsive-svg">
-                        <!-- Nacional (45%) -->
-                        <path d="M 0 0 L 100 0 A 100 100 0 0 1 -81.9 57.4 Z"
-                              fill="#2563EB"
-                              class="donut-segment">
-                            <title>Nacional: 45%</title>
-                        </path>
-                        
-                        <!-- Regional (35%) -->
-                        <path d="M 0 0 L -81.9 57.4 A 100 100 0 0 1 -93.97 -34.2 Z"
-                              fill="#10B981"
-                              class="donut-segment">
-                            <title>Regional: 35%</title>
-                        </path>
-                        
-                        <!-- Local (20%) -->
-                        <path d="M 0 0 L -93.97 -34.2 A 100 100 0 0 1 100 0 Z"
-                              fill="#F59E0B"
-                              class="donut-segment">
-                            <title>Local: 20%</title>
-                        </path>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Demandas por Órgão -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">Demandas por Órgão</div>
-                    <div class="chart-subtitle">Total de campanhas por órgão demandante</div>
-                </div>
-                <div class="chart-container">
-                    <svg viewBox="0 0 800 400" class="responsive-svg">
-                        <!-- Grid e Linhas de Fundo -->
-                        <g class="grid">
-                            <line x1="150" y1="350" x2="750" y2="350" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="300" x2="750" y2="300" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="250" x2="750" y2="250" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="200" x2="750" y2="200" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="150" x2="750" y2="150" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="100" x2="750" y2="100" stroke="#E2E8F0" stroke-width="1"/>
-                            <line x1="150" y1="50" x2="750" y2="50" stroke="#E2E8F0" stroke-width="1"/>
-                        </g>
-
-                        <!-- Barras -->
-                        <g class="bars">
-                            <!-- Ministério da Saúde -->
-                            <rect x="150" y="40" width="450" height="30" fill="#2563EB" opacity="0.8"/>
-                            <rect x="600" y="40" width="100" height="30" fill="#10B981" opacity="0.8"/>
-                            
-                            <!-- Ministério do Desenvolvimento Social -->
-                            <rect x="150" y="90" width="380" height="30" fill="#2563EB" opacity="0.8"/>
-                            <rect x="530" y="90" width="80" height="30" fill="#10B981" opacity="0.8"/>
-                            
-                            <!-- Ministério da Educação -->
-                            <rect x="150" y="140" width="300" height="30" fill="#2563EB" opacity="0.8"/>
-                            <rect x="450" y="140" width="120" height="30" fill="#10B981" opacity="0.8"/>
-                            
-                            <!-- Ministério da Agricultura -->
-                            <rect x="150" y="190" width="280" height="30" fill="#2563EB" opacity="0.8"/>
-                            <rect x="430" y="190" width="90" height="30" fill="#10B981" opacity="0.8"/>
-                            
-                            <!-- Ministério da Justiça -->
-                            <rect x="150" y="240" width="250" height="30" fill="#2563EB" opacity="0.8"/>
-                            <rect x="400" y="240" width="70" height="30" fill="#10B981" opacity="0.8"/>
-                        </g>
-
-                        <!-- Labels -->
-                        <g class="y-axis" font-size="14" fill="#64748B">
-                            <text x="140" y="60" text-anchor="end">Ministério da Saúde</text>
-                            <text x="140" y="110" text-anchor="end">Min. Desenvolvimento Social</text>
-                            <text x="140" y="160" text-anchor="end">Ministério da Educação</text>
-                            <text x="140" y="210" text-anchor="end">Min. da Agricultura</text>
-                            <text x="140" y="260" text-anchor="end">Min. da Justiça</text>
-                        </g>
-
-                        <!-- Legenda -->
-                        <g class="legend" transform="translate(150, 360)">
-                            <rect x="0" y="0" width="12" height="12" fill="#2563EB" opacity="0.8"/>
-                            <text x="20" y="10" fill="#64748B" font-size="12">Campanhas Ativas</text>
-                            
-                            <rect x="150" y="0" width="12" height="12" fill="#10B981" opacity="0.8"/>
-                            <text x="170" y="10" fill="#64748B" font-size="12">Campanhas Previstas</text>
-                        </g>
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function toggleDetails(campaignId) {
-            const detailsRow = document.getElementById(campaignId);
-            const campaignRow = detailsRow.previousElementSibling;
-            const expandBtn = campaignRow.querySelector('.expand-btn i');
-            
-            // Fecha todas as outras linhas
-            document.querySelectorAll('.details-row').forEach(row => {
-                if (row.id !== campaignId) {
-                    row.style.display = 'none';
-                    row.classList.remove('show');
-                    const prevRow = row.previousElementSibling;
-                    prevRow.classList.remove('active');
-                    prevRow.querySelector('.expand-btn i').style.transform = 'rotate(0deg)';
-                }
-            });
-
-            // Toggle da linha atual
-            if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
-                detailsRow.style.display = 'table-row';
-                setTimeout(() => detailsRow.classList.add('show'), 0);
-                campaignRow.classList.add('active');
-                expandBtn.style.transform = 'rotate(-180deg)';
-            } else {
-                detailsRow.style.display = 'none';
-                detailsRow.classList.remove('show');
-                campaignRow.classList.remove('active');
-                expandBtn.style.transform = 'rotate(0deg)';
-            }
-        }
-    </script>
-<script src="script.js"></script>
-</body>
-</html>

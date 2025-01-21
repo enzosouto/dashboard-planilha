@@ -4,6 +4,189 @@
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, sans-serif;
 }
+/* Adicione estes estilos responsivos ao seu style.css */
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Responsividade para telas grandes */
+@media screen and (max-width: 1400px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsividade para tablets */
+@media screen and (max-width: 1024px) {
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .chart-legend {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsividade para tablets menores e celulares */
+@media screen and (max-width: 768px) {
+    /* Mostrar botão do menu mobile */
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Ajustes na sidebar */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 260px;
+        z-index: 999;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Ajustes no conteúdo principal */
+    .main-content {
+        margin-left: 0;
+        padding: 16px;
+        padding-top: 60px;
+    }
+
+    /* Ajustes nas métricas */
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Ajustes na tabela */
+    .table-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .table-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    /* Tornar a tabela scrollável horizontalmente */
+    .table-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ajustes nos gráficos */
+    .chart-card {
+        padding: 16px;
+    }
+
+    .chart-legend {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+/* Responsividade para celulares pequenos */
+@media screen and (max-width: 480px) {
+    .metric-card {
+        padding: 16px;
+    }
+
+    .metric-value {
+        font-size: 24px;
+    }
+
+    th, td {
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+
+    .chart-title {
+        font-size: 16px;
+    }
+
+    /* Ajustar SVGs para serem responsivos */
+    svg {
+        height: auto;
+        max-width: 100%;
+    }
+
+    .chart-container {
+        height: auto;
+        min-height: 300px;
+    }
+}
+
+/* Classes utilitárias para responsividade */
+.hide-on-mobile {
+    display: none !important;
+}
+
+@media screen and (min-width: 769px) {
+    .hide-on-desktop {
+        display: none !important;
+    }
+
+    .hide-on-mobile {
+        display: block !important;
+    }
+}
+
+/* Ajustes para melhor visualização em dispositivos touch */
+@media (hover: none) and (pointer: coarse) {
+    .sidebar-menu a,
+    .btn,
+    .campaign-row {
+        padding: 12px;
+        min-height: 44px;
+    }
+}
+
+/* Overlay para menu mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
 
 :root {
     --primary-color: #2563EB;
@@ -132,6 +315,7 @@ body {
     background-color: var(--primary-color);
     color: white;
 }
+
 
 .btn-primary:hover {
     opacity: 0.9;
