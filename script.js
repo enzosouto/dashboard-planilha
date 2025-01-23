@@ -127,7 +127,7 @@ function updateTable(data) {
         </td>
         <td>
             <div style="font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.campanha || 'N/D'}</div>
-            <div style="font-size: 12px; color: var(--text-secondary);">DSW: ${item.demanda || index}</div>
+            <div style="font-size: 12px; color: var(--text-secondary);">DSW: ${item.dsw || "Sem número"}</div>
         </td>
         <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.órgão_demandante || 'N/D'}</td>
         <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.agência || 'N/D'}</td>
@@ -173,12 +173,12 @@ const detailsRow = `
                     <h4><i class="fas fa-tasks"></i> Status do Projeto</h4>
                     <ul>
                         <li>
-                            <i class="fas fa-file-alt"></i>
-                            Status Conteúdo
-                            <span class="status-badge ${getStatusClass(item.status_conteúdo)}" style="display: inline-block; white-space: normal; word-wrap: break-word; max-width: 400px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding: 5px; border-radius: 5px; background-color: var(--background-secondary);">
-                                ${item.status_conteúdo || 'N/D'}
-                            </span>
-                        </li>
+        <i class="fas fa-file-alt"></i>
+        Status Conteúdo
+        <span class="status-badge ${getStatusClass(item.status_conteúdo)}" style="display: inline-block; white-space: normal; word-wrap: break-word; max-width: 400px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding: 5px; border-radius: 5px; background-color: var(--background-secondary);">
+            ${item.status_conteúdo || 'N/D'}
+        </span>
+    </li>
 
 
 

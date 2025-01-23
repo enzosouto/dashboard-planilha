@@ -5,7 +5,142 @@
     font-family: 'Inter', -apple-system, sans-serif;
 }
 /* Adicione estes estilos responsivos ao seu style.css */
+/* Adicione estes estilos ao seu arquivo CSS existente */
 
+/* Accordion Styles */
+.details-row {
+    background-color: var(--background-color);
+    transition: all 0.3s ease;
+}
+
+.details-content {
+    padding: 24px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.details-section {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.details-section h4 {
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.details-section h4 i {
+    color: var(--primary-color);
+}
+
+.details-info-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin-top: 12px;
+}
+
+.details-info-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.details-info-value {
+    color: var(--text-primary);
+    font-size: 13px;
+}
+
+.details-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.details-tag i {
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+/* Timeline na seção de detalhes */
+.timeline {
+    margin-top: 16px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 24px;
+    padding-bottom: 16px;
+    border-left: 2px solid var(--border-color);
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.timeline-date {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.timeline-content {
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+/* Responsividade para o acordeon */
+@media screen and (max-width: 1024px) {
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .details-content {
+        padding: 16px;
+    }
+}
+
+/* Animação de fade para o acordeon */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
