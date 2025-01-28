@@ -148,8 +148,8 @@ function updateTable(data) {
             <div style="font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.campanha || 'N/D'}</div>
             <div style="font-size: 12px; color: var(--text-secondary);">DSW: ${item.demanda_secomweb || "Sem número"}</div>
         </td>
-        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.órgão_demandante || 'N/D'}</td>
-        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.agência || 'N/D'}</td>
+        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.rg_o_demandante || 'N/D'}</td>
+        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.ag_ncia || 'N/D'}</td>
         <td>
             <span class="status-badge ${getStatusClass(item.status_demanda)}">
                 ${getStatusIcon(item.status_demanda)} ${item.status_demanda || 'N/D'}
