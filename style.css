@@ -645,15 +645,17 @@ th {
 }
 
 .budget {
+    text-align: right;
     white-space: nowrap;
-    font-family: monospace;
-    font-size: 16px;
-    text-align: left;
-}
+    min-width: 120px; /* Ajuste para evitar colapsos */
+    max-width: none; /* Remova o limite superior */
+    overflow: visible; /* Permita que o conteúdo seja exibido sem truncamento */
+  }
+  
 
 .campaign-type {
     font-family: 'Inter', -apple-system, sans-serif;
-    text-align: left;
+    text-align: center;
 }
 
 /* Progress Bar */

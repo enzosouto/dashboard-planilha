@@ -155,28 +155,34 @@ function updateTable(data) {
                 ${getStatusIcon(item.status_demanda)} ${item.status_demanda || 'N/D'}
             </span>
         </td>
-        <td className="budget" style={{ whiteSpace: 'nowrap' }}>
-        ${(() => {
-            const parseNumber = (value) => {
-            if (typeof value === 'string') {
-                // Remove caracteres não numéricos, exceto os separadores de milhares e decimais
-                const cleanValue = value.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
-                return parseFloat(cleanValue) || 0;
-            }
-            return Number(value) || 0;
-            };
+        <td 
+  class="budget" 
+  style="white-space: nowrap; text-align: right; width: auto; min-width: 120px; overflow: visible;">
+  ${(() => {
+    const parseNumber = (value) => {
+      if (typeof value === 'string') {
+        const cleanValue = value
+          .replace(/[^\d.,-]/g, '') // Remove caracteres não numéricos
+          .replace(/\.(?=\d{3},)/g, ''); // Remove separadores de milhares incorretos
+        return parseFloat(cleanValue.replace(',', '.')) || 0;
+      }
+      return Number(value) || 0;
+    };
 
-            const valorSecom = parseNumber(item.valor_autorizado_secom);
-            const valorSicom = parseNumber(item.valor_autorizado_sicom);
+    const valorSecom = parseNumber(item.valor_autorizado_secom);
+    const valorSicom = parseNumber(item.valor_autorizado_sicom);
 
-            const total = valorSecom + valorSicom;
+    const total = valorSecom + valorSicom;
 
-            return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        })()}
-        </td>
+    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  })()}
+</td>
 
 
-        <td class="campaign-type" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.pra_a_sicom || 'N/D'}</td>
+
+
+
+        <td class="campaign-type" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 16px;">${item.pra_a_sicom || 'N/D'}</td>
         <td class="progress-cell">
             <div class="progress-bar">
                 <div class="progress-fill" style="width: ${getProgress(item.status_demanda)}%"></div>
