@@ -32,16 +32,35 @@ function formatData(data) {
     if (!Array.isArray(data) || data.length < 2) return [];
     
     const headers = data[0];
-    console.log("Headers:", headers); // Para verificar o nome exato do campo orçamento
+    console.log("Headers antes da limpeza:", headers); // Para verificar os cabeçalhos originais
     
     return data.slice(1).map(row => {
         const obj = {};
         headers.forEach((header, index) => {
-            obj[header.toLowerCase().replace(/ /g, '_')] = row[index] || '';
+            // Limpeza dos headers: remove caracteres especiais, parênteses, etc.
+            const formattedHeader = header
+                .toLowerCase()
+                .replace(/[()]/g, '') // Remove parênteses
+                .replace(/[^a-z0-9_]/g, '_') // Substitui caracteres especiais por underscore
+                .replace(/_+/g, '_') // Remove underscores duplicados
+                .replace(/^_|_$/g, ''); // Remove underscores no início ou final da string
+
+            // Limpeza dos valores
+            let value = row[index] || '';
+            if (typeof value === 'string') {
+                value = value
+                    .replace(/[()]/g, '') // Remove parênteses
+                    .replace(/\./g, '') // Remove separadores de milhares
+                    .replace(',', '.'); // Substitui vírgula decimal por ponto
+            }
+
+            obj[formattedHeader] = value;
         });
+        console.log("Objeto formatado:", obj);
         return obj;
     });
 }
+
 
 // Função para processar os dados
 function processDataForDisplay(data) {
@@ -127,20 +146,40 @@ function updateTable(data) {
         </td>
         <td>
             <div style="font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.campanha || 'N/D'}</div>
-            <div style="font-size: 12px; color: var(--text-secondary);">DSW: ${item.dsw || "Sem número"}</div>
+            <div style="font-size: 12px; color: var(--text-secondary);">DSW: ${item.demanda_secomweb || "Sem número"}</div>
         </td>
         <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.órgão_demandante || 'N/D'}</td>
         <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.agência || 'N/D'}</td>
         <td>
-            <span class="status-badge ${getStatusClass(item.status_geral)}">
-                ${getStatusIcon(item.status_geral)} ${item.status_geral || 'N/D'}
+            <span class="status-badge ${getStatusClass(item.status_demanda)}">
+                ${getStatusIcon(item.status_demanda)} ${item.status_demanda || 'N/D'}
             </span>
         </td>
-        <td class="budget" style="white-space: nowrap;">${item.orçamento_total || 'R$ 0,00'}</td>
-        <td class="campaign-type" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.praça || 'N/D'}</td>
+        <td className="budget" style={{ whiteSpace: 'nowrap' }}>
+        ${(() => {
+            const parseNumber = (value) => {
+            if (typeof value === 'string') {
+                // Remove caracteres não numéricos, exceto os separadores de milhares e decimais
+                const cleanValue = value.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+                return parseFloat(cleanValue) || 0;
+            }
+            return Number(value) || 0;
+            };
+
+            const valorSecom = parseNumber(item.valor_autorizado_secom);
+            const valorSicom = parseNumber(item.valor_autorizado_sicom);
+
+            const total = valorSecom + valorSicom;
+
+            return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        })()}
+        </td>
+
+
+        <td class="campaign-type" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.pra_a_sicom || 'N/D'}</td>
         <td class="progress-cell">
             <div class="progress-bar">
-                <div class="progress-fill" style="width: ${getProgress(item.status_geral)}%"></div>
+                <div class="progress-fill" style="width: ${getProgress(item.status_demanda)}%"></div>
             </div>
         </td>
     </tr>
@@ -160,7 +199,7 @@ const detailsRow = `
                 <div class="details-section">
                     <h4><i class="fas fa-tv"></i> Plano de Mídia</h4>
                     <ul>
-                        ${formatMediaPlan(item.meios_de_veiculação)}
+                        ${formatMediaPlan(item.meios_de_veicula_o_detalhe_do_meio_tv_aberta_redes_sociais_portais_etc)}
                     </ul>
                     <div style="margin-top: 10px;">
                         <small style="color: var(--text-secondary);">
@@ -175,8 +214,8 @@ const detailsRow = `
                         <li>
         <i class="fas fa-file-alt"></i>
         Status Conteúdo
-        <span class="status-badge ${getStatusClass(item.status_conteúdo)}" style="display: inline-block; white-space: normal; word-wrap: break-word; max-width: 400px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding: 5px; border-radius: 5px; background-color: var(--background-secondary);">
-            ${item.status_conteúdo || 'N/D'}
+        <span class="status-badge ${getStatusClass(item.status_produção)}" style="display: inline-block; white-space: normal; word-wrap: break-word; max-width: 400px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; padding: 5px; border-radius: 5px; background-color: var(--background-secondary);">
+            ${item.status_produção || 'N/D'}
         </span>
     </li>
 
